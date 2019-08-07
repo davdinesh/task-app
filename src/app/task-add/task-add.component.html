@@ -9,6 +9,7 @@
   <mat-card class="example-card">
     <form [formGroup]="taskForm" (ngSubmit)="onFormSubmit(taskForm.value)">
       <mat-form-field class="example-full-width">
+        <mat-label>Task</mat-label>
         <input matInput placeholder="Task" formControlName="task"
                [errorStateMatcher]="matcher">
         <mat-error>
@@ -16,23 +17,25 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <mat-label>Enter Parent Task</mat-label>
-        <input type="text" aria-label="Text" matInput [formControl]="parentTaskControl" [matAutocomplete]="auto">
+        <mat-label>Parent Task</mat-label>
+        <input type="text" aria-label="Text" matInput [formControl]="parentTask" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedclient($event)" [displayWith]="getOptionText">
             <mat-option *ngFor="let option of parentTasks; let i = index" [value]="option">
               {{ option.name }}
             </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <mat-form-field class="example-full-width">
+      <label>Priority</label>
+      <mat-slider aria-label="Priority" aria-labelledby="Priority" thumbLabel [displayWith]="formatLabel" formControlName="priority" (input)="onChange($event)" tickInterval="1" min="1" max="30"></mat-slider>
+      <!--<mat-form-field class="example-full-width">
         <mat-label>Priority</mat-label>
-        <mat-slider thumbLabel [displayWith]="formatLabel" [formControl]="priorityControl" tickInterval="1" min="1" max="30"></mat-slider>
+        <input type="text" matInput formControlName="priority" placeholder="Priority" [errorStateMatcher]="matcher">
         <mat-error>
           <span *ngIf="!taskForm.get('priority').valid && taskForm.get('priority').touched">Please select a priority</span>
         </mat-error>
-      </mat-form-field>
+      </mat-form-field>-->
       <mat-form-field class="example-full-width">
-        <input matInput [matDatepicker] = "startDatePicker" placeholder = "Choose a date" 
+        <input matInput [matDatepicker] = "startDatePicker" placeholder = "Start Date" 
         formControlName="startDate" [errorStateMatcher]="matcher">
         <mat-datepicker-toggle matSuffix [for] = "startDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #startDatePicker></mat-datepicker>
@@ -41,7 +44,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input matInput [matDatepicker] = "endDatePicker" placeholder = "Choose a date" 
+        <input matInput [matDatepicker] = "endDatePicker" placeholder = "End Date" 
         formControlName="endDate" [errorStateMatcher]="matcher">
         <mat-datepicker-toggle matSuffix [for] = "endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
