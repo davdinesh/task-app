@@ -14,16 +14,15 @@ export class TaskAddComponent implements OnInit {
 
   taskForm: FormGroup;
   id: string='';
-  //parentTask: ParentTask = null;
   task: string='';
-  priority: number = null;
   startDate: Date = null;
   endDate: Date = null;
   parentTasks : ParentTask[] = [];
   parentTaskId : number = null;
   isLoadingResults = false;
-  parentTaskControl : FormControl = new FormControl();
-  priorityControl : FormControl = new FormControl();
+  parentTask : FormControl = new FormControl();
+  priority : FormControl = new FormControl();
+  priorityValue : number = null;
   constructor(private router: Router, private api: ApiService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -34,13 +33,14 @@ export class TaskAddComponent implements OnInit {
       'startDate' : [null, Validators.required],
       'endDate' : [null, Validators.required]
     });
-    this.api.getParentTasks()
+    this.parentTasks = [{"id":1,"name":"Analysis"},{"id":2,"name":"Design"}];
+    /*this.api.getParentTasks()
     .subscribe(res => {
       this.parentTasks = res;
       console.log(this.parentTasks);
     }, err => {
       console.log(err);
-    });
+    });*/
   }
 
   onFormSubmit(form:NgForm) {
@@ -72,8 +72,13 @@ export class TaskAddComponent implements OnInit {
     if (!value) {
       return 0;
     }
-    this.taskForm.get('priority').setValue(value);
+    //this.taskForm.get('priority').setValue(value);
     return value;
+  }
+
+  onChange(event) {
+    this.taskForm.get('priority').patchValue(event.value);
+    console.log("event value : " + this.taskForm.get('priority').value);
   }
 
 }
