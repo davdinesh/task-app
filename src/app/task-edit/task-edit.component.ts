@@ -45,8 +45,7 @@ export class TaskEditComponent implements OnInit {
 
   onFormSubmit(form: NgForm) {
     this.isLoadingResults = true;
-    console.log("Task Form :: " + form)
-    this.api.updateTask(this.id, this.taskForm)
+    this.api.updateTask(this.id, form)
       .subscribe(res => {
         let id = res['id'];
         this.isLoadingResults = false;
