@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup, Validators, NgForm, FormControl } from '@angular/forms';
 import { ParentTask } from '../model/parent-task';
@@ -13,7 +13,7 @@ import { ParentTask } from '../model/parent-task';
 export class TaskAddComponent implements OnInit {
 
   taskForm: FormGroup;
-  id: string='';
+  id: number;
   task: string='';
   startDate: Date = null;
   endDate: Date = null;
@@ -26,6 +26,7 @@ export class TaskAddComponent implements OnInit {
   constructor(private router: Router, private api: ApiService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    
     this.taskForm = this.formBuilder.group({
       'task' : [null, Validators.required],
       'parentTask' : [null, Validators.required],
@@ -33,14 +34,13 @@ export class TaskAddComponent implements OnInit {
       'startDate' : [null, Validators.required],
       'endDate' : [null, Validators.required]
     });
-    this.parentTasks = [{"id":1,"name":"Analysis"},{"id":2,"name":"Design"}];
-    /*this.api.getParentTasks()
+    this.api.getParentTasks()
     .subscribe(res => {
       this.parentTasks = res;
       console.log(this.parentTasks);
     }, err => {
       console.log(err);
-    });*/
+    });
   }
 
   onFormSubmit(form:NgForm) {
@@ -80,5 +80,4 @@ export class TaskAddComponent implements OnInit {
     this.taskForm.get('priority').patchValue(event.value);
     console.log("event value : " + this.taskForm.get('priority').value);
   }
-
 }

@@ -4,7 +4,7 @@
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="button-row">
-    <a mat-flat-button color="primary" [routerLink]="['/books']">Back to View Tasks</a>
+    <a mat-flat-button color="primary" [routerLink]="['/tasks']">Back to View Tasks</a>
   </div>
   <mat-card class="example-card">
     <form [formGroup]="taskForm" (ngSubmit)="onFormSubmit(taskForm.value)">

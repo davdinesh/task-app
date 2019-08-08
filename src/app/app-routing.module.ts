@@ -10,12 +10,12 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: TasksComponent,
-    data: {title: 'List of Tasks'}
+    data: {title: 'View Task'}
   },
   {
     path: 'task-edit/:id',
     component: TaskEditComponent,
-    data: {title: 'Edit Task'}
+    data: {title: 'Update Task'}
   },
   {
     path: 'task-add',
