@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Task } from '../model/task';
+import { TaskSearchCriteria } from '../model/task-search-criteria';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -15,26 +16,13 @@ export class TasksComponent implements OnInit {
   data: Task[] = [];
   dataSource: any = null
   isLoadingResults = true;
-  taskSearchForm: FormGroup;
-  taskName : string = '';
-  parentTaskName : string = '';
-  priorityFrom : number;
-  priorityTo : number;
-  startDate : Date = null;
-  endDate : Date = null;
+  taskFilter: TaskSearchCriteria = new TaskSearchCriteria();
+  
   constructor(private api: ApiService,private formBuilder: FormBuilder) { }
 
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    this.taskSearchForm = this.formBuilder.group({
-      'taskName': null,
-      'parentTaskName': null,
-      'priorityFrom': null,
-      'priorityTo': null,
-      'startDate': null,
-      'endDate' : null
-    });
     this.api.getTasks()
     .subscribe(res => {
       this.data = res;
@@ -46,6 +34,17 @@ export class TasksComponent implements OnInit {
       console.log(err);
       this.isLoadingResults = false;
     });
+  }
+  
+  reset() {
+    this.taskFilter = {
+      "taskName" : null,
+      "parentTaskName" : null,
+      "startDate" : null,
+      "endDate" : null,
+      "priorityFrom" : '',
+      "priorityTo" : ''
+    };
   }
   
 
