@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError, tap, map } from 'rxjs/operators';
 import { Task } from './model/task';
 import { ParentTask } from './model/parent-task';
+import { TaskSearchCriteria } from './model/task-search-criteria';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -77,4 +78,14 @@ export class ApiService {
         catchError(this.handleError('getParentTasks',[]))
       );
   }
+
+  getFilteredTasks (criteria : TaskSearchCriteria): Observable<Task[]> {
+    console.log(criteria);
+    return this.http.post<Task[]>(apiUrl + "/filterCriteria",criteria)
+    .pipe(
+      tap(item => console.log('Fetched Tasks')),
+      catchError(this.handleError('getFilteredTasks',[]))
+    );
+  }
+  
 }

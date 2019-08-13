@@ -14,6 +14,7 @@ export class TasksComponent implements OnInit {
   sampleData : any[] = [{"id":1,"parentTask":{"id":1,"name":"Design"},"task":"High Level Design","startDate":"2019-02-01","endDate":"2019-02-10","priority":3},{"id":2,"parentTask":{"id":1,"name":"Design"},"task":"Low Level Design","startDate":"2019-02-11","endDate":"2019-02-15","priority":5},{"id":3,"parentTask":{"id":2,"name":"Development"},"task":"Configuration update","startDate":"2019-08-08","endDate":"2019-08-10","priority":8},{"id":4,"parentTask":{"id":3,"name":"Testing"},"task":"Performance tuning","startDate":"2019-08-08","endDate":"2019-08-10","priority":17}];
   displayedColumns: string[] = ['task_name', 'parent_task','priority','start_date','end_date','actions'];
   data: Task[] = [];
+  filteredData : Task[] = [];
   dataSource: any = null
   isLoadingResults = true;
   taskFilter: TaskSearchCriteria = new TaskSearchCriteria();
@@ -23,6 +24,10 @@ export class TasksComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
+    this.getTasks();
+  }
+
+  getTasks() {
     this.api.getTasks()
     .subscribe(res => {
       this.data = res;
@@ -45,6 +50,22 @@ export class TasksComponent implements OnInit {
       "priorityFrom" : '',
       "priorityTo" : ''
     };
+    this.getTasks();
+  }
+
+  applyFilter(criteria : TaskSearchCriteria) {
+    console.log("Apply Filter : " + criteria);
+    this.api.getFilteredTasks(criteria)
+    .subscribe(res => {
+      this.data = res;
+      this.dataSource = new MatTableDataSource<Task>(this.data);
+      this.dataSource.sort = this.sort;
+      console.log(res);
+      this.isLoadingResults = false;
+    }, err => {
+      console.log(err);
+      this.isLoadingResults = false;
+    });
   }
   
 

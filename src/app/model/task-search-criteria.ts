@@ -1,8 +1,8 @@
 export class TaskSearchCriteria {
     taskName: string;
     parentTaskName: string;
-    priorityFrom: number;
-    priorityTo: number;
+    priorityFrom: string;
+    priorityTo: string;
     startDate: Date;
     endDate: Date;
 }
