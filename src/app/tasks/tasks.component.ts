@@ -67,6 +67,30 @@ export class TasksComponent implements OnInit {
       this.isLoadingResults = false;
     });
   }
+
+  endTask(taskObj : Task) {
+    this.isLoadingResults = true;
+    let now = new Date();
+    taskObj.endDate = now;
+    this.api.updateTask(taskObj.id, taskObj)
+      .subscribe(res => {
+        let id = res['id'];
+        this.isLoadingResults = false;
+        this.getTasks();
+      }, (err) => {
+        console.log(err);
+        this.isLoadingResults = false;
+      });
+  }
+
+  taskEnded(taskObj : Task) {
+    let now = new Date();
+    if (taskObj.endDate = now) {
+      return true
+    } else {
+      return false;
+    }
+  }
   
 
 }
