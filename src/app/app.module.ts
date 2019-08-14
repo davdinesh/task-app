@@ -17,20 +17,23 @@ import {
   MatFormFieldModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSliderModule } from "@angular/material";
+  MatSliderModule,
+  MatToolbarModule } from "@angular/material";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
+import { TaskMenuComponent } from './task-menu/task-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
     TaskAddComponent,
-    TaskEditComponent
+    TaskEditComponent,
+    TaskMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
-    MatSliderModule
+    MatSliderModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
