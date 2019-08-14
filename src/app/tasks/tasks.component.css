@@ -46,3 +46,7 @@
   .mat-flat-button {
     margin: 5px;
   }
+  .example-full-width {
+    width: 15%;
+    padding-right: 10px;
+  }
