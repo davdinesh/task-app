@@ -15,8 +15,8 @@
                 [errorStateMatcher]="matcher">
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <mat-label>Parent Task Name</mat-label>
-        <input matInput placeholder="Parent Task" [(ngModel)]="taskFilter.parentTaskName"
+        <mat-label>Parent</mat-label>
+        <input matInput placeholder="Parent" [(ngModel)]="taskFilter.parentTaskName"
                 [errorStateMatcher]="matcher">
       </mat-form-field>
       <mat-form-field class="example-full-width">
@@ -81,7 +81,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let row">
-          <a mat-flat-button disabled="taskEnded(row)" color="primary" [routerLink]="['/task-edit', row.id]">Edit</a>
+          <a mat-flat-button color="primary" [routerLink]="['/task-edit', row.id]">Edit</a>
           <a mat-flat-button color="primary" (click)="endTask(row)">End Task</a>
         </td>
       </ng-container>

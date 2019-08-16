@@ -2,3 +2,8 @@
     padding-right: 30px;
     text-decoration: none !important;
 }
+
+.color-disabled {
+    color : grey;
+    cursor: default;
+}
